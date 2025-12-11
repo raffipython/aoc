@@ -18,7 +18,9 @@ def count_paths(graph, start, end):
     path = []
     # fft dac
     def dfs(node, visited):
+        #print(node, visited)
         if node == end:
+            #print(visited)
             path.append(sorted(visited))
             return 1
         total = 0
@@ -36,22 +38,25 @@ for line in lines:
     edges = line.split(":")[1].split()
     graph.update({name: edges})
 
-G = nx.DiGraph()
+#G = nx.DiGraph()
 
-for node, targets in graph.items():
-    for t in targets:
-        G.add_edge(node, t)
+#for node, targets in graph.items():
+#    for t in targets:
+#        G.add_edge(node, t)
 
-plt.figure(figsize=(6, 6))
-pos = nx.spring_layout(G)
-nx.draw(G, pos, with_labels=True, arrows=True, node_color="lightgreen")
+#plt.figure(figsize=(6, 6))
+#pos = nx.spring_layout(G)
+#nx.draw(G, pos, with_labels=True, arrows=True, node_color="lightgreen")
 
 print(count_paths(graph, "svr", "out"))
+#print(count_paths(graph, "svr", "fft"))
+
+
 #plt.show()
 #print(path)
 counter = 0
 for p in path:
-    #print(p)
     if "fft" in p and "dac" in p:
+        print(p)
         counter += 1
 print(counter)
