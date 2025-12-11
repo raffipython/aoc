@@ -8,7 +8,7 @@ import os
 # 6910 is bad
 # 6701 is bad
 # 6659 wrong
-# 6671 
+# 6671 right
 
 
 DIAL_SIZE = 100
