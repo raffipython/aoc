@@ -3,7 +3,11 @@ import os
 # 6723 is too high
 # 3797 is too low
 
-with open('input2', 'r') as fd:
+i = 'input'
+i = 'input2'
+#i = 'input3'
+
+with open(i, 'r') as fd:
     f = fd.read()
     lines = f.split('\n')
 
@@ -30,7 +34,6 @@ for line in lines:
         else:
             current_zero = False
 
-        if amount 
 
         current -= amount
         if amount > current:
