@@ -4,87 +4,41 @@ import os
 # 3797 is too low
 # 6350 is bad
 # 6219 is 
+# 6490 is bad
+# 6910 is bad
+# 6701 is bad
+# 6659 wrong
+# 6671 
 
-i = 'input'
-i = 'input2'
-#i = 'input3'
 
-with open(i, 'r') as fd:
-    f = fd.read()
-    lines = f.split('\n')
+DIAL_SIZE = 100
+START = 50
+FILENAME = "input3"   # change to "input" or "input2" as needed
 
-counter = 0
-current = 50
-print("The dial starts by pointing at 50.")
-###############################################
+def count_zero_hits(filename: str, start: int = START, dial_size: int = DIAL_SIZE) -> int:
+    with open(filename, "r") as f:
+        lines = [line.strip() for line in f if line.strip()]
 
-for line in lines:
-    #print('----------------------')
-    #print(f"Counter is: {counter}")
-    #print(f"Current is: {current}")
-    #print(f"Item is:    {line}")
-    direction = line[0]
-    amount = int(line[1:])
-    #print(direction)
-    #print(amount)
+    current = start
+    counter = 0
 
-    if direction == "L":
-        #     10        50 
-        if amount < current:
-            current -= amount
-        #     50        50
-        elif amount == current:
-            current -= amount
-            counter += 1
-        #     160       50
-        elif amount > current: 
-            #print(current)
-            #print(amount)
-            rotations = int(amount / 100)
-            if current != 0:
+    for line in lines:
+        direction = line[0]
+        amount = int(line[1:])
+
+        step = -1 if direction == "L" else 1
+
+        for _ in range(amount):
+            current = (current + step) % dial_size
+            if current == 0:
                 counter += 1
-            counter += rotations
-            current -= amount
-            #print(f"current counter after rotations (L) {counter}")
-        else:
-            pass
-        current = current % 100
-        #print(current)
 
-    else:
-        #print('problem here')
-        #print(current)
-        #print(amount)
-        sum = amount + current
-        #print(f"sum: {sum}")
-        if sum < 100:
-            current += amount
-        elif sum == 100:
-            current = 0
-            counter += 1
-        elif sum > 100:
-            # could be 101 or 201...
-            rotations = 1 + int(amount / 100)
-            counter += rotations
-            #print(rotations)
-            #print(f"current counter after rotations (R) {counter}")
-            #print(current)
-            current = sum
-        current = current % 100
-        #print(current)
-        
-    print(f"The dial is rotated {line} to point at {current}. COUNTER: {counter}")
+        print(f"{line:>5} → dial at {current:3}, counter = {counter}")
+
+    return counter
 
 
-
-
-       
-
-
-###############################################
-print(f"\n--------\nFinal counter is: {counter}")
-
-
-
-
-
+if __name__ == "__main__":
+    total = count_zero_hits(FILENAME)
+    print("\n--------")
+    print(f"Final counter is: {total}")
