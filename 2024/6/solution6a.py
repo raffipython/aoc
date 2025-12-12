@@ -1,0 +1,106 @@
+def locate_guard(array, guard_symbols):
+    """Locate the current position of the guard."""
+    for x, row in enumerate(array):
+        for symbol in guard_symbols:
+            if symbol in row:
+                y = row.index(symbol)
+                return x, y, symbol
+    return -1, -1, None  # Guard not found
+
+
+def up(array):
+    x, y, symbol = locate_guard(array, ["^"])
+    if x == -1:
+        print("Guard '^' not found in the matrix.")
+        return True
+
+    print(f"Guard at RIGHT: {y+1}, DOWN: {x+1} moving up.")
+    array[x][y] = "x"
+    for i in range(x - 1, -1, -1):
+        if array[i][y] == "#":
+            break
+        array[i][y] = "x"
+
+    if i >= 0 and y + 1 < len(array[0]):
+        array[i + 1][y + 1] = ">"
+    return False
+
+
+def down(array):
+    x, y, symbol = locate_guard(array, ["v"])
+    if x == -1:
+        print("Guard 'v' not found in the matrix.")
+        return True
+
+    print(f"Guard at RIGHT: {y+1}, DOWN: {x+1} moving down.")
+    array[x][y] = "x"
+    for i in range(x + 1, len(array)):
+        if array[i][y] == "#":
+            break
+        array[i][y] = "x"
+
+    if i < len(array) and y - 1 >= 0:
+        array[i - 1][y - 1] = "<"
+    return False
+
+
+def left(array):
+    x, y, symbol = locate_guard(array, ["<"])
+    if x == -1:
+        print("Guard '<' not found in the matrix.")
+        return True
+
+    print(f"Guard at RIGHT: {y+1}, DOWN: {x+1} moving left.")
+    array[x][y] = "x"
+    for j in range(y - 1, -1, -1):
+        if array[x][j] == "#":
+            break
+        array[x][j] = "x"
+
+    if j >= 0 and x - 1 >= 0:
+        array[x - 1][j + 1] = "^"
+    return False
+
+
+def right(array):
+    x, y, symbol = locate_guard(array, [">"])
+    if x == -1:
+        print("Guard '>' not found in the matrix.")
+        return True
+
+    print(f"Guard at RIGHT: {y+1}, DOWN: {x+1} moving right.")
+    array[x][y] = "x"
+    for j in range(y + 1, len(array[0])):
+        if array[x][j] == "#":
+            break
+        array[x][j] = "x"
+
+    if j < len(array[0]) and x + 1 < len(array):
+        array[x + 1][j - 1] = "v"
+    return False
+
+
+# Main logic to process the grid
+filename = 'input'
+#filename = 'test'
+with open(filename, 'r') as fd:
+    f = fd.read()
+
+lines = f.split("\n")[:-1]
+array = [list(line) for line in lines]
+
+end = False
+for _ in range(1000):  # Allow enough iterations for processing
+    if end:
+        break
+    end = up(array)
+    end = right(array)
+    end = down(array)
+    end = left(array)
+
+# Display the final state of the grid
+for line in array:
+    print("".join(line))
+
+#PLUS one
+#$ python solution6a.py |grep -v Guard |grep -o x | wc -l
