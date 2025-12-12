@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 i = 'input'
 #i = 'input2'
-#i = 'input3'
+i = 'input3'
 
 with open(i, 'r') as fd:
     f = fd.read()
@@ -18,9 +18,7 @@ def count_paths(graph, start, end):
     path = []
     # fft dac
     def dfs(node, visited):
-        #print(node, visited)
         if node == end:
-            #print(visited)
             path.append(sorted(visited))
             return 1
         total = 0
@@ -49,7 +47,6 @@ for line in lines:
 #nx.draw(G, pos, with_labels=True, arrows=True, node_color="lightgreen")
 
 print(count_paths(graph, "svr", "out"))
-#print(count_paths(graph, "svr", "fft"))
 
 
 #plt.show()
