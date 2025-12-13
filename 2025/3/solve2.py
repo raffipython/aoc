@@ -1,7 +1,7 @@
 import os
 
 i = 'input'
-#i = 'input2'
+i = 'input2'
 
 with open(i, 'r') as fd:
     f = fd.read()
@@ -11,11 +11,19 @@ totalfinal = 0
 
 #####################
 for line in lines[:]:
+    print("-----------------")
     l = 0
+    print(line)
+    print(line[:-11])
+    line = line[:-11]
     for i in line:
         if int(i) > l:
             l = int(i)
     max = l # max digit in line
+
+    print(line.index(str(max)))
+
+
     cmax = line.count(str(l)) # count of that max
     second = None
     if cmax == 1:
