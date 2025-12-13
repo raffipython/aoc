@@ -9,8 +9,7 @@ with open(i, 'r') as fd:
 #print(lines)
 totalfinal = 0
 
-indexofnumbers = [0,0,0,0,0,0,0,0,0]
-
+#####################
 for line in lines[:]:
     l = 0
     for i in line:
@@ -18,17 +17,7 @@ for line in lines[:]:
             l = int(i)
     max = l # max digit in line
     cmax = line.count(str(l)) # count of that max
-    indexmax = line.index(str(l))
-    distance = len(line) - indexmax
-    print(f"max {max} count {cmax} indexmax {indexmax} distance {distance}")
-    if distance >= 12:
-        print("good")
-
-        
-
-
-
-
+    second = None
     if cmax == 1:
         if int(line[-1]) == l:
             x = l # second digit
@@ -63,11 +52,6 @@ for line in lines[:]:
         print(z)
         totalfinal += z
 
-
-
-
-
 #####################
 print("----")
 print(totalfinal)
-
