@@ -22,9 +22,9 @@ total = []
 
 ########################
 i = 0
-for r in ranges[:-1]:
-    print("=============")
-    print(r)
+for r in ranges:
+    #print("=============")
+    print(f"{r[0]} {r[1]}")
     start = r[0]
     end =   r[1]
     #size = len(str(start))
@@ -33,9 +33,9 @@ for r in ranges[:-1]:
     #print(end)
     #print(diff)
     #[total.append(x) for x in range(start, end+1)]
-    print(f"end of this:    {end}")
-    print(f"start of next:  {ranges[i+1][0]}")
-    print(ranges[i+1][0] - end)
+    #print(f"end of this:    {end}")
+    #print(f"start of next:  {ranges[i+1][0]}")
+    #print(ranges[i+1][0] - end)
     i += 1
 
 
